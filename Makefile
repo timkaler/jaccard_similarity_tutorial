@@ -2,7 +2,7 @@ BUILD_DIR := build
 CC := clang++
 LD := clang++
 
-CFLAGS := -Wall -Werror -fcilkplus -DCILKP
+CFLAGS := -Wall -Werror -fcilkplus -DCILKP -std=c++11
 LDFLAGS := -lcilkrts
 
 ALL: main
