@@ -126,7 +126,7 @@ int main(int argc, char** argv) {
   printf("edges %d\n", G.m);
 
   float* j1 = algorithm_1(G);
-  float* j2 = j1;//algorithm_2(G);
+  float* j2 = algorithm_2(G);
   for (int i = 0; i < G.n; i++) {
     for (int j = 0; j < G.n; j++) {
       float val1 = j1[i*G.n + j];

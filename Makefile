@@ -5,12 +5,15 @@ LD := clang++
 CFLAGS := -Wall -O3 -g -gdwarf-3 -fcilkplus -Werror -DCILKP -std=c++14
 LDFLAGS := #-lcilkrts -ldl
 
-ALL: main
+ALL: main main-cilksan
 
 
 
 main: main.cpp
 	$(CC) -o $@ $(CFLAGS) $^ $(LDFLAGS)
+
+main-cilksan: main.cpp
+	$(CC) -o $@ $(CFLAGS) -fsanitize=cilk $^ $(LDFLAGS)
 
 #.main.cilkscale: main.cpp
 #	$(CC) -o $@ $(CFLAGS) -fcsi $^ $(LDFLAGS) -l:libclang_rt.cilkscale-x86_64.a
