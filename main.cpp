@@ -86,6 +86,34 @@ float* algorithm_1(graph<intT> G) {
   return jacard;
 }
 
+float* algorithm_3(graph<intT> G) {
+  float* jacard = (float*) malloc(sizeof(float)*G.n*G.n);
+  for (int i = 0; i < G.n; i++) {
+    for (int j = 0; j < G.n; j++) {
+      int intersect = 0;
+      int ii = 0, jj = 0;
+
+      int di = G.V[i].degree;
+      int dj = G.V[j].degree;
+
+      while(ii < di && jj < dj) {
+        int ni = G.V[i].Neighbors[ii];
+        int nj = G.V[j].Neighbors[jj];
+        if (ni == nj) {
+            ii++;
+            jj++;
+            intersect++;
+        } else if(ni < nj) {
+            ii++;
+        } else {
+            jj++;
+        }
+      }
+      jacard[i*G.n + j] = (float)intersect / (di + dj - intersect);
+    }
+  }
+  return jacard;
+}
 
 int main(int argc, char** argv) {
   std::vector<std::string> required_args;
@@ -126,7 +154,7 @@ int main(int argc, char** argv) {
   printf("edges %d\n", G.m);
 
   float* j1 = algorithm_1(G);
-  float* j2 = j1;//algorithm_2(G);
+  float* j2 = algorithm_3(G);
   for (int i = 0; i < G.n; i++) {
     for (int j = 0; j < G.n; j++) {
       float val1 = j1[i*G.n + j];
